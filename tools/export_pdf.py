@@ -11,6 +11,7 @@ from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
 STYLE_PATH = WORKSPACE_ROOT / "tools" / "pdf_style.css"
+JAPANESE_PATTERN = re.compile(r"[\u3040-\u30ff\u4e00-\u9fff]")
 
 
 def parse_args() -> argparse.Namespace:
@@ -67,32 +68,69 @@ def find_soffice() -> Path:
     sys.exit(1)
 
 
-def extract_title(markdown_text: str, fallback: str) -> tuple[str, str]:
+def contains_japanese(text: str) -> bool:
+    return bool(JAPANESE_PATTERN.search(text))
+
+
+def parse_document_header(markdown_text: str, fallback: str) -> tuple[str, str, str, str, str]:
     title = fallback
     subtitle = ""
+    display_title = fallback
+    kicker = ""
+    body_markdown = markdown_text
 
     lines = markdown_text.splitlines()
+    first_content_index = None
     for index, line in enumerate(lines):
-        if line.startswith("# "):
-            title = line[2:].strip()
-            if index + 1 < len(lines) and lines[index + 1].startswith("## "):
-                subtitle = lines[index + 1][3:].strip()
+        if line.strip():
+            first_content_index = index
             break
 
-    return title, subtitle
+    if first_content_index is not None and lines[first_content_index].startswith("# "):
+        title = lines[first_content_index][2:].strip() or fallback
+        next_index = first_content_index + 1
+        while next_index < len(lines) and not lines[next_index].strip():
+            next_index += 1
+        if next_index < len(lines) and lines[next_index].startswith("## "):
+            subtitle = lines[next_index][3:].strip()
+            body_start = next_index + 1
+        else:
+            body_start = first_content_index + 1
+
+        while body_start < len(lines) and not lines[body_start].strip():
+            body_start += 1
+
+        body_markdown = "\n".join(lines[body_start:])
+
+    if subtitle and contains_japanese(subtitle) and not contains_japanese(title):
+        display_title = subtitle
+        kicker = title
+    else:
+        display_title = title
+        kicker = subtitle if subtitle else ""
+
+    return title, subtitle, display_title, kicker, body_markdown
 
 
-def build_html(markdown_text: str, title: str, subtitle: str, toc_mode: str) -> str:
+def build_html(
+    markdown_text: str,
+    title: str,
+    subtitle: str,
+    display_title: str,
+    kicker: str,
+    toc_mode: str,
+) -> str:
     markdown = load_markdown_module()
     md = markdown.Markdown(extensions=["extra", "toc", "sane_lists"])
     body_html = md.convert(markdown_text)
     toc_html = md.toc if toc_mode != "none" else ""
     style = STYLE_PATH.read_text(encoding="utf-8")
 
-    header_parts = [
-        f"<h1>{html.escape(title)}</h1>",
-    ]
-    if subtitle:
+    header_parts = []
+    if kicker:
+        header_parts.append(f"<div class=\"doc-kicker\">{html.escape(kicker)}</div>")
+    header_parts.append(f"<h1>{html.escape(display_title)}</h1>")
+    if subtitle and kicker != subtitle and subtitle != display_title:
         header_parts.append(f"<div class=\"doc-subtitle\">{html.escape(subtitle)}</div>")
     header_html = "\n".join(header_parts)
 
@@ -163,7 +201,7 @@ def build_html(markdown_text: str, title: str, subtitle: str, toc_mode: str) -> 
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>{html.escape(title)}</title>
+  <title>{html.escape(display_title)}{'' if not title or title == display_title else ' | ' + html.escape(title)}</title>
   <style>
 {style}
   </style>
@@ -225,13 +263,23 @@ def main() -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     markdown_text = input_path.read_text(encoding="utf-8")
-    title, subtitle = extract_title(markdown_text, input_path.stem)
+    title, subtitle, display_title, kicker, body_markdown = parse_document_header(
+        markdown_text,
+        input_path.stem,
+    )
 
     suffix = build_suffix(args.toc_mode)
     html_name = f"{normalize_output_name(input_path.stem)}{suffix}.html"
     html_path = output_dir / html_name
 
-    html_text = build_html(markdown_text, title, subtitle, args.toc_mode)
+    html_text = build_html(
+        body_markdown,
+        title,
+        subtitle,
+        display_title,
+        kicker,
+        args.toc_mode,
+    )
     html_path.write_text(html_text, encoding="utf-8")
 
     print(f"HTML: {html_path}")

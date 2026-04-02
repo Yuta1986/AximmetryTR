@@ -55,6 +55,46 @@
       "problemMatcher": []
     },
     {
+      "label": "PDF: Export Active Markdown (Mobeon)",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/export_pdf.py",
+        "${file}",
+        "--target",
+        "pdf",
+        "--output-dir",
+        "exports",
+        "--theme",
+        "mobeon"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "PDF: Export Active Markdown (Mobeon with Inline TOC)",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/export_pdf.py",
+        "${file}",
+        "--target",
+        "pdf",
+        "--output-dir",
+        "exports",
+        "--theme",
+        "mobeon",
+        "--toc-mode",
+        "inline"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "HTML: Export Active Markdown",
       "type": "shell",
       "command": "python",
@@ -72,6 +112,25 @@
       "problemMatcher": []
     },
     {
+      "label": "HTML: Export Active Markdown (Mobeon)",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/export_pdf.py",
+        "${file}",
+        "--target",
+        "html",
+        "--output-dir",
+        "exports",
+        "--theme",
+        "mobeon"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "HTML: Export Active Markdown (with Sidebar TOC)",
       "type": "shell",
       "command": "python",
@@ -82,6 +141,27 @@
         "html",
         "--output-dir",
         "exports",
+        "--toc-mode",
+        "sidebar"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "HTML: Export Active Markdown (Mobeon with Sidebar TOC)",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/export_pdf.py",
+        "${file}",
+        "--target",
+        "html",
+        "--output-dir",
+        "exports",
+        "--theme",
+        "mobeon",
         "--toc-mode",
         "sidebar"
       ],

@@ -10,8 +10,16 @@ from pathlib import Path
 
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
-STYLE_PATH = WORKSPACE_ROOT / "tools" / "pdf_style.css"
 JAPANESE_PATTERN = re.compile(r"[\u3040-\u30ff\u4e00-\u9fff]")
+STYLE_PATHS = {
+    "default": WORKSPACE_ROOT / "tools" / "pdf_style.css",
+    "mobeon": WORKSPACE_ROOT / "tools" / "pdf_style_mobeon.css",
+}
+CALLOUT_TYPES = {
+    "INFO": "info",
+    "WARNING": "warning",
+    "CRITICAL": "critical",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -31,6 +39,12 @@ def parse_args() -> argparse.Namespace:
         choices=["none", "inline", "sidebar"],
         default="none",
         help="Choose no TOC, inline TOC, or a sidebar TOC in the generated HTML.",
+    )
+    parser.add_argument(
+        "--theme",
+        choices=sorted(STYLE_PATHS),
+        default="default",
+        help="Choose the export theme.",
     )
     return parser.parse_args()
 
@@ -70,6 +84,27 @@ def find_soffice() -> Path:
 
 def contains_japanese(text: str) -> bool:
     return bool(JAPANESE_PATTERN.search(text))
+
+
+def get_style_path(theme: str) -> Path:
+    style_path = STYLE_PATHS[theme]
+    if not style_path.exists():
+        print(f"Theme stylesheet not found: {style_path}", file=sys.stderr)
+        sys.exit(1)
+    return style_path
+
+
+def annotate_callouts(body_html: str) -> str:
+    for label, callout_type in CALLOUT_TYPES.items():
+        body_html = re.sub(
+            rf"<blockquote>\s*<p><strong>{label}</strong>",
+            (
+                f'<blockquote class="callout callout-{callout_type}">'
+                f'<p><strong class="callout-label">{label}</strong>'
+            ),
+            body_html,
+        )
+    return body_html
 
 
 def parse_document_header(markdown_text: str, fallback: str) -> tuple[str, str, str, str, str]:
@@ -119,12 +154,14 @@ def build_html(
     display_title: str,
     kicker: str,
     toc_mode: str,
+    theme: str,
 ) -> str:
     markdown = load_markdown_module()
     md = markdown.Markdown(extensions=["extra", "toc", "sane_lists"])
     body_html = md.convert(markdown_text)
+    body_html = annotate_callouts(body_html)
     toc_html = md.toc if toc_mode != "none" else ""
-    style = STYLE_PATH.read_text(encoding="utf-8")
+    style = get_style_path(theme).read_text(encoding="utf-8")
 
     header_parts = []
     if kicker:
@@ -168,7 +205,7 @@ def build_html(
   </script>
 """
 
-    body_class = f"toc-mode-{toc_mode}"
+    body_class = f"toc-mode-{toc_mode} theme-{theme}"
 
     if toc_mode == "sidebar":
         content_html = f"""
@@ -246,12 +283,15 @@ def normalize_output_name(stem: str) -> str:
     return re.sub(r"[^\w.-]+", "_", stem).strip("_") or "document"
 
 
-def build_suffix(toc_mode: str) -> str:
+def build_suffix(theme: str, toc_mode: str) -> str:
+    suffix = ""
+    if theme != "default":
+        suffix += f"_{theme}"
     if toc_mode == "inline":
-        return "_with_inline_toc"
-    if toc_mode == "sidebar":
-        return "_with_sidebar_toc"
-    return ""
+        suffix += "_with_inline_toc"
+    elif toc_mode == "sidebar":
+        suffix += "_with_sidebar_toc"
+    return suffix
 
 
 def main() -> None:
@@ -268,7 +308,7 @@ def main() -> None:
         input_path.stem,
     )
 
-    suffix = build_suffix(args.toc_mode)
+    suffix = build_suffix(args.theme, args.toc_mode)
     html_name = f"{normalize_output_name(input_path.stem)}{suffix}.html"
     html_path = output_dir / html_name
 
@@ -279,6 +319,7 @@ def main() -> None:
         display_title,
         kicker,
         args.toc_mode,
+        args.theme,
     )
     html_path.write_text(html_text, encoding="utf-8")
 

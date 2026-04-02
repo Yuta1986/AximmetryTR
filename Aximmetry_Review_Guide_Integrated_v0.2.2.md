@@ -61,8 +61,9 @@ Aximmetryの画面を触る前に、**AX Scene / Unreal Setup for Aximmetry / Ax
 先に言葉の意味を引きたいときは、このセクションを使ってください。
 
 - **AX Scene Editor**  
-  Aximmetryが提供する、Unreal Editorをベースにしたカスタム版。古い資料では **Unreal Editor for Aximmetry** と表記される場合があります。  
-  本資料では **AX Scene Editor** に統一します。
+  Aximmetryが提供する、Unreal Editorをベースにしたカスタム版です。2026.1.0では、ライセンス体系の変更に伴って Unreal 関連コンポーネントの名称整理が行われ、現行資料では **AX Scene Editor** という名称が使われます。  
+  一方で、**2025.3.0以前のバージョンを継続利用する場合** や、旧資料・動画チュートリアルでは **Unreal Editor for Aximmetry** という旧名称が使われます。  
+  本資料では **AX Scene Editor** を基本表記とし、必要に応じて旧名称 **Unreal Editor for Aximmetry** も併記します。
 
 - **グリーンバック / Green Screen**  
   日本語本文では **グリーンバック** と表記します。  

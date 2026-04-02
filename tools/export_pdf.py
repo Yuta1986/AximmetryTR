@@ -20,9 +20,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("input", help="Markdown file to export.")
     parser.add_argument("--output-dir", default="exports", help="Directory for output files.")
     parser.add_argument(
-        "--with-toc",
-        action="store_true",
-        help="Inject a clickable table of contents block near the top of the PDF.",
+        "--target",
+        choices=["html", "pdf", "both"],
+        default="pdf",
+        help="Export HTML only, PDF only, or both.",
+    )
+    parser.add_argument(
+        "--toc-mode",
+        choices=["none", "inline", "sidebar"],
+        default="none",
+        help="Choose no TOC, inline TOC, or a sidebar TOC in the generated HTML.",
     )
     return parser.parse_args()
 
@@ -75,11 +82,11 @@ def extract_title(markdown_text: str, fallback: str) -> tuple[str, str]:
     return title, subtitle
 
 
-def build_html(markdown_text: str, title: str, subtitle: str, with_toc: bool) -> str:
+def build_html(markdown_text: str, title: str, subtitle: str, toc_mode: str) -> str:
     markdown = load_markdown_module()
     md = markdown.Markdown(extensions=["extra", "toc", "sane_lists"])
     body_html = md.convert(markdown_text)
-    toc_html = md.toc if with_toc else ""
+    toc_html = md.toc if toc_mode != "none" else ""
     style = STYLE_PATH.read_text(encoding="utf-8")
 
     header_parts = [
@@ -89,14 +96,68 @@ def build_html(markdown_text: str, title: str, subtitle: str, with_toc: bool) ->
         header_parts.append(f"<div class=\"doc-subtitle\">{html.escape(subtitle)}</div>")
     header_html = "\n".join(header_parts)
 
-    toc_block = ""
-    if toc_html:
-        toc_block = (
+    inline_toc_block = ""
+    sidebar_toc_block = ""
+    script_block = ""
+
+    if toc_html and toc_mode == "inline":
+        inline_toc_block = (
             "<section class=\"toc-block\">"
             "<h2>Table of Contents / 目次</h2>"
             f"{toc_html}"
             "</section>"
         )
+
+    if toc_html and toc_mode == "sidebar":
+        sidebar_toc_block = (
+            "<aside id=\"toc-sidebar\" class=\"toc-sidebar\">"
+            "<h2>Table of Contents / 目次</h2>"
+            f"{toc_html}"
+            "</aside>"
+        )
+        script_block = """
+  <script>
+    (function () {
+      const body = document.body;
+      const button = document.getElementById("toc-toggle");
+      if (!button) return;
+      button.addEventListener("click", function () {
+        const collapsed = body.classList.toggle("toc-collapsed");
+        button.textContent = collapsed ? "Show TOC" : "Hide TOC";
+        button.setAttribute("aria-expanded", String(!collapsed));
+      });
+    })();
+  </script>
+"""
+
+    body_class = f"toc-mode-{toc_mode}"
+
+    if toc_mode == "sidebar":
+        content_html = f"""
+  <button id="toc-toggle" class="toc-toggle" type="button" aria-controls="toc-sidebar" aria-expanded="true">
+    Hide TOC
+  </button>
+  <div class="page-layout">
+    {sidebar_toc_block}
+    <div class="content-shell">
+      <header class="doc-header">
+        {header_html}
+      </header>
+      <main class="doc-main">
+        {body_html}
+      </main>
+    </div>
+  </div>
+{script_block}"""
+    else:
+        content_html = f"""
+  <header class="doc-header">
+    {header_html}
+  </header>
+  {inline_toc_block}
+  <main class="doc-main">
+    {body_html}
+  </main>"""
 
     return f"""<!DOCTYPE html>
 <html lang="ja">
@@ -107,14 +168,8 @@ def build_html(markdown_text: str, title: str, subtitle: str, with_toc: bool) ->
 {style}
   </style>
 </head>
-<body>
-  <header class="doc-header">
-    {header_html}
-  </header>
-  {toc_block}
-  <main>
-    {body_html}
-  </main>
+<body class="{body_class}">
+{content_html}
 </body>
 </html>
 """
@@ -153,6 +208,14 @@ def normalize_output_name(stem: str) -> str:
     return re.sub(r"[^\w.-]+", "_", stem).strip("_") or "document"
 
 
+def build_suffix(toc_mode: str) -> str:
+    if toc_mode == "inline":
+        return "_with_inline_toc"
+    if toc_mode == "sidebar":
+        return "_with_sidebar_toc"
+    return ""
+
+
 def main() -> None:
     args = parse_args()
     input_path = Path(args.input).resolve()
@@ -164,16 +227,18 @@ def main() -> None:
     markdown_text = input_path.read_text(encoding="utf-8")
     title, subtitle = extract_title(markdown_text, input_path.stem)
 
-    suffix = "_with_toc" if args.with_toc else ""
+    suffix = build_suffix(args.toc_mode)
     html_name = f"{normalize_output_name(input_path.stem)}{suffix}.html"
     html_path = output_dir / html_name
 
-    html_text = build_html(markdown_text, title, subtitle, args.with_toc)
+    html_text = build_html(markdown_text, title, subtitle, args.toc_mode)
     html_path.write_text(html_text, encoding="utf-8")
 
-    pdf_path = export_pdf(html_path, output_dir)
     print(f"HTML: {html_path}")
-    print(f"PDF:  {pdf_path}")
+
+    if args.target in {"pdf", "both"}:
+        pdf_path = export_pdf(html_path, output_dir)
+        print(f"PDF:  {pdf_path}")
 
 
 if __name__ == "__main__":

@@ -21,6 +21,8 @@
       "args": [
         "tools/export_pdf.py",
         "${file}",
+        "--target",
+        "pdf",
         "--output-dir",
         "exports"
       ],
@@ -34,15 +36,54 @@
       "problemMatcher": []
     },
     {
-      "label": "PDF: Export Active Markdown (with TOC)",
+      "label": "PDF: Export Active Markdown (with Inline TOC)",
       "type": "shell",
       "command": "python",
       "args": [
         "tools/export_pdf.py",
         "${file}",
+        "--target",
+        "pdf",
         "--output-dir",
         "exports",
-        "--with-toc"
+        "--toc-mode",
+        "inline"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "HTML: Export Active Markdown",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/export_pdf.py",
+        "${file}",
+        "--target",
+        "html",
+        "--output-dir",
+        "exports"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "HTML: Export Active Markdown (with Sidebar TOC)",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/export_pdf.py",
+        "${file}",
+        "--target",
+        "html",
+        "--output-dir",
+        "exports",
+        "--toc-mode",
+        "sidebar"
       ],
       "options": {
         "cwd": "${workspaceFolder}"

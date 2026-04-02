@@ -29,6 +29,7 @@
 
 - 現行の生成物: `exports/`
 - 旧生成物の退避先: `Achive/exports/`
+- 旧版のソース保管先: `Achive/guide_versions/`
 - 運用メモと補助資料: `Docs/`
 - 既存フォルダ名は `Achive` なので、明示依頼がない限り repo-wide rename はしない
 
@@ -44,3 +45,4 @@
 - ファイル編集は `apply_patch` を使う
 - 文言調整、注記追加、Export フロー改善の依頼では、構成変更をしない
 - クライアント向け本文と内部メモは分けて管理する
+- 版番号ルールは `Docs/Versioning_Policy.md` を基準にする

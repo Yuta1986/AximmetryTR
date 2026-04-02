@@ -6,7 +6,7 @@
 
 ## 関連ファイル
 
-- 元原稿: ルート直下の Markdown。例: `Aximmetry_Review_Guide_Integrated_v0.2.2.md`
+- 元原稿: ルート直下の Markdown。例: `Aximmetry_Review_Guide_Integrated_v0.2.3.md`
 - VS Code タスク定義: `.vscode/tasks.json`
 - 書き出しスクリプト: `tools/export_pdf.py`
 - スタイル: `tools/pdf_style.css`

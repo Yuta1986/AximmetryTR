@@ -50,3 +50,11 @@
 - 文言調整、注記追加、Export フロー改善の依頼では、構成変更をしない
 - クライアント向け本文と内部メモは分けて管理する
 - 版番号ルールは `Docs/Versioning_Policy.md` を基準にする
+
+## 再開時の手がかり
+
+- 進行中の本文は `Aximmetry_Review_Guide_Integrated_v0.2.3.md`
+- 2026-04-02 時点で、章タイトルとロードマップ導線は `日本語 / English` の順に統一済み
+- 第2章の短縮表記は `AX Scene / Unreal準備 / AX Scene / Unreal Setup`
+- `このロードマップの見取り図` の章名は、本文の章タイトルと一致させる
+- セッション固有の handoff は `Aximmetry_Review_Guide_Notes.md` に残す

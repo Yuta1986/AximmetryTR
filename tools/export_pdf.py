@@ -14,12 +14,17 @@ JAPANESE_PATTERN = re.compile(r"[\u3040-\u30ff\u4e00-\u9fff]")
 STYLE_PATHS = {
     "default": WORKSPACE_ROOT / "tools" / "pdf_style.css",
     "mobeon": WORKSPACE_ROOT / "tools" / "pdf_style_mobeon.css",
+    "mobeon-dark": WORKSPACE_ROOT / "tools" / "pdf_style_mobeon_dark.css",
 }
-CALLOUT_TYPES = {
+CALLOUT_LABEL_TYPES = {
     "INFO": "info",
+    "補足": "info",
     "WARNING": "warning",
+    "注意": "warning",
     "CRITICAL": "critical",
+    "重要": "critical",
 }
+TOC_HEADING = "目次"
 
 
 def parse_args() -> argparse.Namespace:
@@ -95,9 +100,9 @@ def get_style_path(theme: str) -> Path:
 
 
 def annotate_callouts(body_html: str) -> str:
-    for label, callout_type in CALLOUT_TYPES.items():
+    for label, callout_type in CALLOUT_LABEL_TYPES.items():
         body_html = re.sub(
-            rf"<blockquote>\s*<p><strong>{label}</strong>",
+            rf"<blockquote>\s*<p><strong>{re.escape(label)}</strong>",
             (
                 f'<blockquote class="callout callout-{callout_type}">'
                 f'<p><strong class="callout-label">{label}</strong>'
@@ -178,7 +183,7 @@ def build_html(
     if toc_html and toc_mode == "inline":
         inline_toc_block = (
             "<section class=\"toc-block\">"
-            "<h2>Table of Contents / 目次</h2>"
+            f"<h2>{TOC_HEADING}</h2>"
             f"{toc_html}"
             "</section>"
         )
@@ -186,7 +191,7 @@ def build_html(
     if toc_html and toc_mode == "sidebar":
         sidebar_toc_block = (
             "<aside id=\"toc-sidebar\" class=\"toc-sidebar\">"
-            "<h2>Table of Contents / 目次</h2>"
+            f"<h2>{TOC_HEADING}</h2>"
             f"{toc_html}"
             "</aside>"
         )

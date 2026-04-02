@@ -161,7 +161,7 @@ def build_html(
       if (!button) return;
       button.addEventListener("click", function () {
         const collapsed = body.classList.toggle("toc-collapsed");
-        button.textContent = collapsed ? "Show TOC" : "Hide TOC";
+        button.textContent = collapsed ? "目次を表示" : "目次を隠す";
         button.setAttribute("aria-expanded", String(!collapsed));
       });
     })();
@@ -173,7 +173,7 @@ def build_html(
     if toc_mode == "sidebar":
         content_html = f"""
   <button id="toc-toggle" class="toc-toggle" type="button" aria-controls="toc-sidebar" aria-expanded="true">
-    Hide TOC
+    目次を隠す
   </button>
   <div class="page-layout">
     {sidebar_toc_block}

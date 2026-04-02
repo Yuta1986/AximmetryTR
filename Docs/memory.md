@@ -39,6 +39,10 @@
 - `Inline TOC` は本文内に見せる目次
 - `Sidebar TOC` は HTML ブラウザ表示用
 - VS Code タスク名は `.vscode/tasks.json` に定義されている
+- 維持するテーマは 3 系統:
+- `default` = 白ベース + 青系アクセントの中立テーマ
+- `mobeon` = 白ベース + ブロンズ / 赤系アクセント
+- `mobeon-dark` = ダークベース + オレンジ / ブロンズ系アクセント
 
 ## 編集時の注意
 

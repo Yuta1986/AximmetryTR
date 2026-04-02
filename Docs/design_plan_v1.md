@@ -19,6 +19,16 @@ This document defines an **optional Mobeon-branded export pattern**.
   - AI-readable heading structure
   - stable PDF export
 
+### Theme Portfolio
+
+The export system should keep **multiple parallel presentation patterns**.
+
+- `default`: clean white base + blue accents, aligned with the current `main` baseline
+- `mobeon`: clean white base + orange-led bronze / red accents
+- `mobeon-dark`: dark base + orange / bronze accents
+
+These should coexist without forcing a single visual answer for every document.
+
 ### Brand Source Boundary
 
 The official Mobeon sites suggest a strong brand direction built around:
@@ -71,7 +81,7 @@ The currently available Mobeon logo suggests a palette closer to:
 
 So the documentation theme should prefer:
 - a light document canvas
-- bronze as the main structural accent
+- orange-led bronze as the main structural accent
 - muted red as a highlight or header accent
 - neutral semantic colors for warning states when needed
 
@@ -83,7 +93,8 @@ It should avoid drifting into:
 ### Variant Strategy
 
 To keep comparison safe and non-destructive, the Mobeon documentation pattern may have:
-- `mobeon`: light canvas + bronze-led structure
+- `default`: neutral light canvas + blue-led structure
+- `mobeon`: light canvas + orange-led bronze structure
 - `mobeon-dark`: dark canvas + orange / bronze-led structure
 
 The dark variant should remain:

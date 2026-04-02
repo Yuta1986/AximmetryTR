@@ -17,7 +17,10 @@
 
 - 日本語話者向けの一般語は、できるだけ自然な日本語に寄せる
 - `Training` は本文では `トレーニング` にする
+- 日英併記は原則 `日本語 / English` とし、左日本語 / 右英語で統一する
+- 改行で重ねるタイトルでも、日本語を先に置く
 - UI 名や専門用語は、英語のまま、または英語併記を維持してよい
+- 自然な日本語見出しが不安定な用語は、無理に和訳せず英語単独でもよい
 - 明示依頼がない限り、メインガイドの設計や粒度は変えない
 
 ## Aximmetry 固有の名称ルール
@@ -27,7 +30,7 @@
 
 ## リポジトリ構成メモ
 
-- 現行の生成物: `exports/`
+- 現行の生成物: `exports/<pattern>/`
 - 旧生成物の退避先: `Achive/exports/`
 - 旧版のソース保管先: `Achive/guide_versions/`
 - 運用メモと補助資料: `Docs/`
@@ -38,6 +41,12 @@
 - PDF 配布では、PDF のしおり / アウトラインを主役にする
 - `Inline TOC` は本文内に見せる目次
 - `Sidebar TOC` は HTML ブラウザ表示用
+- export 生成物は `exports/<pattern>/` に分ける
+- `<pattern>` は `theme + toc_mode` の組み合わせで管理する
+- 各 `exports/<pattern>/` は live view ではなく、その時点の snapshot
+- Markdown 本文を更新しても、再 export していない他パターンは自動更新されない
+- 内容更新後にパターン間比較をする前は、`Export: Sync Active Markdown (All Patterns)` で全パターンを再生成する
+- source と export のずれを疑うときは、Markdown と各 `exports/<pattern>/` の更新時刻を比較する
 - VS Code タスク名は `.vscode/tasks.json` に定義されている
 - 維持するテーマは 3 系統:
 - `default` = 白ベース + 青系アクセントの中立テーマ
@@ -55,6 +64,9 @@
 
 - 進行中の本文は `Aximmetry_Review_Guide_Integrated_v0.2.3.md`
 - 2026-04-02 時点で、章タイトルとロードマップ導線は `日本語 / English` の順に統一済み
+- 2026-04-02 時点で、最上段タイトルも日本語先行に整理済み
 - 第2章の短縮表記は `AX Scene / Unreal準備 / AX Scene / Unreal Setup`
 - `このロードマップの見取り図` の章名は、本文の章タイトルと一致させる
+- 2026-04-02 の再開作業で、用語辞書と本文中の **既存の日英併記項目** は `日本語 / English` を優先する方針に寄せた
+- `Input Recording` `Tracking Calibration` `Nodal Offset` など、自然な日本語見出しを無理に作りにくい用語は英語表記を維持してよい
 - セッション固有の handoff は `Aximmetry_Review_Guide_Notes.md` に残す

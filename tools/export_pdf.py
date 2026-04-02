@@ -288,15 +288,13 @@ def normalize_output_name(stem: str) -> str:
     return re.sub(r"[^\w.-]+", "_", stem).strip("_") or "document"
 
 
-def build_suffix(theme: str, toc_mode: str) -> str:
-    suffix = ""
-    if theme != "default":
-        suffix += f"_{theme}"
+def build_pattern_name(theme: str, toc_mode: str) -> str:
+    pattern = theme
     if toc_mode == "inline":
-        suffix += "_with_inline_toc"
+        pattern += "_with_inline_toc"
     elif toc_mode == "sidebar":
-        suffix += "_with_sidebar_toc"
-    return suffix
+        pattern += "_with_sidebar_toc"
+    return pattern
 
 
 def main() -> None:
@@ -306,6 +304,8 @@ def main() -> None:
 
     output_dir = (WORKSPACE_ROOT / args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
+    pattern_dir = output_dir / build_pattern_name(args.theme, args.toc_mode)
+    pattern_dir.mkdir(parents=True, exist_ok=True)
 
     markdown_text = input_path.read_text(encoding="utf-8")
     title, subtitle, display_title, kicker, body_markdown = parse_document_header(
@@ -313,9 +313,8 @@ def main() -> None:
         input_path.stem,
     )
 
-    suffix = build_suffix(args.theme, args.toc_mode)
-    html_name = f"{normalize_output_name(input_path.stem)}{suffix}.html"
-    html_path = output_dir / html_name
+    html_name = f"{normalize_output_name(input_path.stem)}.html"
+    html_path = pattern_dir / html_name
 
     html_text = build_html(
         body_markdown,
@@ -331,7 +330,7 @@ def main() -> None:
     print(f"HTML: {html_path}")
 
     if args.target in {"pdf", "both"}:
-        pdf_path = export_pdf(html_path, output_dir)
+        pdf_path = export_pdf(html_path, pattern_dir)
         print(f"PDF:  {pdf_path}")
 
 

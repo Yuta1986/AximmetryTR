@@ -15,6 +15,21 @@
       "problemMatcher": []
     },
     {
+      "label": "Export: Sync Active Markdown (All Patterns)",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/export_all_patterns.py",
+        "${file}",
+        "--output-dir",
+        "exports"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "PDF: Export Active Markdown",
       "type": "shell",
       "command": "python",

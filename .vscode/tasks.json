@@ -264,6 +264,23 @@
         "cwd": "${workspaceFolder}"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Pages: Sync Active Markdown Site",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "tools/sync_pages_site.py",
+        "${file}",
+        "--exports-dir",
+        "exports",
+        "--site-dir",
+        "site"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
     }
   ]
 }

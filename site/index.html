@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>学習・復習ロードマップ v0.2.3</title>
+  <style>
+@page {
+  size: A4;
+  margin: 15mm 15mm 18mm 15mm;
+}
+
+:root {
+  --bg: #eef3f8;
+  --surface: #ffffff;
+  --surface-soft: #f5f8fc;
+  --surface-strong: #eaf1f8;
+  --line: #d6dfeb;
+  --line-strong: #9bb0c8;
+  --text: #10213b;
+  --text-muted: #55657d;
+  --accent: #0f6fff;
+  --accent-strong: #0a56c8;
+  --accent-soft: #dce8ff;
+  --accent-cyan: #00b8c8;
+  --code-bg: #edf4ff;
+  --quote-bg: #f4f8fe;
+  --shadow-soft: 0 14px 34px rgba(16, 33, 59, 0.07);
+  --shadow-card: 0 18px 42px rgba(16, 33, 59, 0.08);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+body {
+  font-family: "Segoe UI Variable Text", "Yu Gothic UI", "Meiryo", "Segoe UI", sans-serif;
+  font-size: 10.8pt;
+  line-height: 1.72;
+  color: var(--text);
+  margin: 0;
+  background: var(--surface);
+  letter-spacing: 0.01em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text);
+  page-break-after: avoid;
+  page-break-inside: avoid;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 24pt;
+  line-height: 1.18;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 15.5pt;
+  margin-top: 24pt;
+  margin-bottom: 8pt;
+  padding-bottom: 5pt;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+h2::before {
+  content: "";
+  display: inline-block;
+  width: 11mm;
+  height: 2.5pt;
+  margin-right: 7pt;
+  margin-bottom: 3pt;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-cyan));
+}
+
+h3 {
+  font-size: 12.5pt;
+  margin-top: 16pt;
+  margin-bottom: 6pt;
+  color: var(--accent-strong);
+}
+
+h4 {
+  font-size: 11pt;
+  margin-top: 12pt;
+  margin-bottom: 4pt;
+}
+
+p,
+li,
+blockquote {
+  orphans: 3;
+  widows: 3;
+}
+
+p,
+ul,
+ol,
+blockquote,
+table,
+pre {
+  margin-top: 0;
+  margin-bottom: 11pt;
+}
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li {
+  margin-bottom: 0.3em;
+}
+
+li::marker {
+  color: var(--accent-strong);
+}
+
+code {
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 0.92em;
+  background: var(--code-bg);
+  color: var(--accent-strong);
+  padding: 0.12em 0.42em;
+  border-radius: 4px;
+  border: 1px solid #d7e6ff;
+}
+
+pre {
+  background: linear-gradient(180deg, #f8fbff, #eef5ff);
+  border: 1px solid #d6e4ff;
+  padding: 11pt 12pt;
+  border-radius: var(--radius-sm);
+  overflow: auto;
+}
+
+pre code {
+  background: transparent;
+  color: var(--text);
+  border: 0;
+  padding: 0;
+}
+
+blockquote {
+  margin-left: 0;
+  padding: 10pt 12pt;
+  border-left: 4px solid var(--accent);
+  background: var(--quote-bg);
+  color: #2c415d;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+th,
+td {
+  border: 1px solid var(--line);
+  padding: 7pt 8pt;
+  vertical-align: top;
+}
+
+th {
+  background: linear-gradient(180deg, #f7faff, #edf4ff);
+  color: var(--text);
+  font-weight: 700;
+}
+
+a {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-decoration-color: #9cc0ff;
+  text-underline-offset: 0.16em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 18pt 0;
+}
+
+.doc-main,
+.doc-header,
+.toc-block {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.doc-header {
+  margin-bottom: 14pt;
+  padding: 0 14mm;
+  background:
+    linear-gradient(135deg, rgba(15, 111, 255, 0.12), rgba(0, 184, 200, 0.08)),
+    linear-gradient(180deg, #ffffff, #f8fbff);
+  border: 1px solid #dbe6f3;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.doc-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-cyan));
+}
+
+.doc-header::after {
+  content: "";
+  position: absolute;
+  top: -48px;
+  right: -36px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(15, 111, 255, 0.18), rgba(15, 111, 255, 0));
+  pointer-events: none;
+}
+
+.doc-header h1 {
+  padding-top: 18pt;
+  font-size: 28pt;
+}
+
+.doc-kicker {
+  padding-top: 18pt;
+  margin-bottom: 7pt;
+  color: var(--accent-strong);
+  font-size: 9.4pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.doc-subtitle {
+  color: var(--text-muted);
+  font-size: 10pt;
+  margin-top: 7pt;
+  margin-bottom: 18pt;
+  max-width: 92%;
+}
+
+.doc-main {
+  padding: 0 14mm 0;
+}
+
+.doc-main > *:first-child,
+.doc-main h2:first-child {
+  margin-top: 0;
+}
+
+.toc-block {
+  background: linear-gradient(180deg, #fbfdff, #f4f8fd);
+  border: 1px solid #dbe6f3;
+  border-radius: var(--radius-lg);
+  padding: 13pt 15pt;
+  margin: 12pt auto 18pt;
+  page-break-inside: avoid;
+  box-shadow: var(--shadow-soft);
+}
+
+.toc-block h2,
+.toc-sidebar h2 {
+  margin-top: 0;
+  border-bottom: 0;
+  padding-bottom: 0;
+  font-size: 10.2pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.toc-block h2::before,
+.toc-sidebar h2::before {
+  width: 8mm;
+}
+
+.toc-block ul,
+.toc-sidebar ul,
+.toc-block .toc ul,
+.toc-sidebar .toc ul {
+  margin: 6pt 0;
+}
+
+.toc-block .toc,
+.toc-sidebar .toc {
+  font-size: 10pt;
+}
+
+.toc-block .toc ul,
+.toc-sidebar .toc ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.toc-block .toc ul ul,
+.toc-sidebar .toc ul ul {
+  padding-left: 1.1em;
+}
+
+.toc-block .toc a,
+.toc-sidebar .toc a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.toc-block .toc li,
+.toc-sidebar .toc li {
+  padding: 2px 0;
+}
+
+.toc-toggle,
+.toc-sidebar {
+  display: none;
+}
+
+input[type="checkbox"] {
+  transform: scale(0.92);
+  margin-right: 0.45em;
+  accent-color: var(--accent);
+}
+
+strong {
+  color: #0d1c34;
+}
+
+@media screen {
+  body {
+    background:
+      radial-gradient(circle at top right, rgba(0, 184, 200, 0.14), transparent 28%),
+      radial-gradient(circle at top left, rgba(15, 111, 255, 0.12), transparent 24%),
+      linear-gradient(180deg, #edf3f9 0%, #f5f8fc 100%);
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(15, 111, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 111, 255, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.05));
+  }
+
+  body.toc-mode-sidebar {
+    padding: 18px;
+  }
+
+  .page-layout {
+    display: grid;
+    grid-template-columns: 312px minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .content-shell {
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(214, 223, 235, 0.95);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    padding: 10mm 0 12mm;
+  }
+
+  .toc-mode-sidebar .toc-sidebar {
+    display: block;
+    position: sticky;
+    top: 18px;
+    max-height: calc(100vh - 36px);
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(214, 223, 235, 0.95);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    padding: 18px 20px;
+  }
+
+  .toc-mode-sidebar .toc-sidebar h2 {
+    margin-bottom: 12px;
+  }
+
+  .toc-mode-sidebar .toc-sidebar .toc a {
+    display: inline-block;
+    border-radius: 7px;
+    padding: 2px 4px;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+
+  .toc-mode-sidebar .toc-sidebar .toc a:hover {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+
+  .toc-mode-sidebar .doc-header,
+  .toc-mode-sidebar .doc-main {
+    max-width: none;
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+
+  .toc-mode-sidebar .doc-header h1 {
+    font-size: 30pt;
+  }
+
+  .toc-mode-sidebar .toc-toggle {
+    display: inline-block;
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 20;
+    border: 1px solid #c4d5eb;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 9px 13px;
+    font-size: 10pt;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(16, 33, 59, 0.12);
+    transition: transform 120ms ease, box-shadow 120ms ease;
+  }
+
+  .toc-mode-sidebar .toc-toggle:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(16, 33, 59, 0.15);
+  }
+
+  .toc-mode-sidebar.toc-collapsed .page-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .toc-mode-sidebar.toc-collapsed .toc-sidebar {
+    display: none;
+  }
+
+  .toc-mode-sidebar.toc-collapsed .content-shell {
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .toc-block {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+  }
+
+  .toc-block .toc a:hover {
+    color: var(--accent-strong);
+  }
+
+  a {
+    transition: color 120ms ease, text-decoration-color 120ms ease;
+  }
+
+  a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+}
+
+@media print {
+  body {
+    background: var(--surface);
+  }
+
+  .doc-header,
+  .toc-block,
+  table {
+    box-shadow: none;
+  }
+
+  .toc-toggle,
+  .toc-sidebar {
+    display: none !important;
+  }
+}
+
+  </style>
+</head>
+<body class="toc-mode-sidebar theme-default">
+
+  <button id="toc-toggle" class="toc-toggle" type="button" aria-controls="toc-sidebar" aria-expanded="true">
+    目次を隠す
+  </button>
+  <div class="page-layout">
+    <aside id="toc-sidebar" class="toc-sidebar"><h2>目次</h2><div class="toc">
+<ul>
+<li><a href="#_1">このロードマップの使い方</a><ul>
+<li><a href="#1">1. まず全体像をつかむ</a></li>
+<li><a href="#2">2. 次に「背景側」の前提を整える</a></li>
+<li><a href="#3">3. その後に「同期」の意味を理解する</a></li>
+<li><a href="#4">4. 本資料のトラッキングカメラワークフローを通す</a></li>
+<li><a href="#5">5. つまずいたら症状から引く</a></li>
+</ul>
+</li>
+<li><a href="#_2">このロードマップの見取り図</a></li>
+<li><a href="#scope">この資料の対象範囲 / Scope</a></li>
+<li><a href="#terminology">用語辞書 / Terminology</a></li>
+<li><a href="#1-system-overview">1. システム概要 / System Overview</a><ul>
+<li><a href="#_3">この章でつかむこと</a></li>
+<li><a href="#_4">最初に押さえること</a><ul>
+<li><a href="#3_1">3つの流れ</a></li>
+</ul>
+</li>
+<li><a href="#mental-model">たとえ話 / Mental Model</a></li>
+<li><a href="#_5">チェックポイント</a></li>
+<li><a href="#_6">よくある誤解</a></li>
+</ul>
+</li>
+<li><a href="#2-ax-scene-unreal-ax-scene-unreal-setup">2. AX Scene / Unreal準備 / AX Scene / Unreal Setup</a><ul>
+<li><a href="#_7">この章でつかむこと</a></li>
+<li><a href="#_8">最初に押さえること</a></li>
+<li><a href="#_9">この章で押さえること</a></li>
+<li><a href="#_10">最低限の確認観点</a><ul>
+<li><a href="#a-project-version">A. Project / Version</a></li>
+<li><a href="#b-project-settings">B. Project Settings</a></li>
+<li><a href="#c-aximmetry-camera">C. Aximmetry Camera 前提</a></li>
+<li><a href="#d-scene">D. Scene 側の最低限</a></li>
+</ul>
+</li>
+<li><a href="#mental-model_1">たとえ話 / Mental Model</a></li>
+<li><a href="#_11">チェックポイント</a></li>
+<li><a href="#_12">よくある誤解</a></li>
+</ul>
+</li>
+<li><a href="#3-system-synchronization-and-calibration">3. システム同期とキャリブレーション / System Synchronization and Calibration</a><ul>
+<li><a href="#_13">この章でつかむこと</a></li>
+<li><a href="#_14">最初に押さえること</a></li>
+<li><a href="#_15">この章で押さえること</a><ul>
+<li><a href="#tracking-calibration">Tracking Calibration</a></li>
+<li><a href="#nodal-offset">Nodal Offset</a></li>
+</ul>
+</li>
+<li><a href="#mental-model_2">たとえ話 / Mental Model</a></li>
+<li><a href="#_16">後続工程とのつながり</a></li>
+<li><a href="#_17">チェックポイント</a></li>
+<li><a href="#_18">よくある誤解</a></li>
+</ul>
+</li>
+<li><a href="#4-tracked-camera-workflow">4. トラッキングカメラワークフロー / Tracked Camera Workflow</a><ul>
+<li><a href="#_19">この章でつかむこと</a></li>
+<li><a href="#_20">最初に押さえること</a></li>
+<li><a href="#_21">流れの全体像</a></li>
+<li><a href="#io">I/O設定の基本順</a><ul>
+<li><a href="#_22">基本順序</a></li>
+</ul>
+</li>
+<li><a href="#_23">この章で押さえること</a></li>
+<li><a href="#mental-model_3">たとえ話 / Mental Model</a></li>
+<li><a href="#_24">チェックポイント</a></li>
+<li><a href="#_25">よくある誤解</a></li>
+</ul>
+</li>
+<li><a href="#5-keying-and-live-output">5. キーイングとライブ出力 / Keying and Live Output</a><ul>
+<li><a href="#_26">この章でつかむこと</a></li>
+<li><a href="#_27">最初に押さえること</a></li>
+<li><a href="#_28">キーイングの確認順</a></li>
+<li><a href="#_29">ライブ出力の考え方</a></li>
+<li><a href="#mental-model_4">たとえ話 / Mental Model</a></li>
+<li><a href="#_30">チェックポイント</a></li>
+<li><a href="#_31">よくある誤解</a></li>
+</ul>
+</li>
+<li><a href="#6-replay-recording-and-offline-review">6. 再生・記録・オフライン確認 / Replay, Recording, and Offline Review</a><ul>
+<li><a href="#_32">この章でつかむこと</a></li>
+<li><a href="#_33">最初に押さえること</a></li>
+<li><a href="#_34">この章のキーワード</a><ul>
+<li><a href="#live-rec">当日収録 / Live Rec</a></li>
+<li><a href="#input-recording">Input Recording</a></li>
+<li><a href="#use-input-tc">Use Input TC</a></li>
+<li><a href="#tracking-only">Tracking Only</a></li>
+<li><a href="#playback-replay">Playback / Replay</a></li>
+</ul>
+</li>
+<li><a href="#_35">使いどころ</a></li>
+<li><a href="#_36">見るポイント</a></li>
+<li><a href="#mental-model_5">たとえ話 / Mental Model</a></li>
+<li><a href="#_37">チェックポイント</a></li>
+<li><a href="#_38">よくある誤解</a></li>
+</ul>
+</li>
+<li><a href="#7-troubleshooting-by-symptom">7. 症状別トラブルシューティング / Troubleshooting by Symptom</a><ul>
+<li><a href="#_39">この章でつかむこと</a></li>
+<li><a href="#_40">基本姿勢</a></li>
+<li><a href="#a">症状A: トラッカーが来ない</a><ul>
+<li><a href="#_41">まず見る場所</a></li>
+<li><a href="#_42">まず疑うこと</a></li>
+<li><a href="#_43">戻る順番</a></li>
+<li><a href="#_44">開く資料</a></li>
+</ul>
+</li>
+<li><a href="#b-cv-protocol">症状B: レンズ情報 / CV Protocol が来ない</a><ul>
+<li><a href="#_45">まず見る場所</a></li>
+<li><a href="#_46">まず疑うこと</a></li>
+<li><a href="#_47">戻る順番</a></li>
+</ul>
+</li>
+<li><a href="#c">症状C: ズームだけ合わない</a><ul>
+<li><a href="#_48">まず見る場所</a></li>
+<li><a href="#_49">まず疑うこと</a></li>
+<li><a href="#_50">戻る順番</a></li>
+</ul>
+</li>
+<li><a href="#d-auto">症状D: AUTO で映像が来ない</a><ul>
+<li><a href="#_51">まず見る場所</a></li>
+<li><a href="#_52">まず疑うこと</a></li>
+<li><a href="#_53">戻る順番</a></li>
+</ul>
+</li>
+<li><a href="#e">症状E: タイムコードが噛み合わない</a><ul>
+<li><a href="#_54">まず見る場所</a></li>
+<li><a href="#_55">まず疑うこと</a></li>
+<li><a href="#_56">戻る順番</a></li>
+</ul>
+</li>
+<li><a href="#mental-model_6">たとえ話 / Mental Model</a></li>
+<li><a href="#_57">チェックポイント</a></li>
+</ul>
+</li>
+<li><a href="#8-practical-extensions">8. 実践的な発展項目 / Practical Extensions</a><ul>
+<li><a href="#_58">この章でつかむこと</a></li>
+<li><a href="#_59">この章の位置づけ</a></li>
+<li><a href="#_60">最初に触れたい項目</a></li>
+<li><a href="#_61">この章で押さえること</a></li>
+<li><a href="#_62">チェックポイント</a></li>
+</ul>
+</li>
+<li><a href="#9-purpose-index">9. 目的別索引 / Purpose Index</a><ul>
+<li><a href="#_63">まず全体像をつかみたい</a></li>
+<li><a href="#_64">背景側の準備を確認したい</a></li>
+<li><a href="#inputs-sync">入力と同期 / Inputs / Sync を確認したい</a></li>
+<li><a href="#_65">キーイングとライブ出力を確認したい</a></li>
+<li><a href="#offline-review">記録 / 再生 / offline review を確認したい</a></li>
+<li><a href="#_66">発展項目を確認したい</a></li>
+<li><a href="#retracker-bliss">REtracker Bliss を確認したい</a><ul>
+<li><a href="#_67">推奨する参照順</a></li>
+<li><a href="#_68">公式ページ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#final-review-checklist">最終確認チェックリスト / Final Review Checklist</a></li>
+</ul>
+</div>
+</aside>
+    <div class="content-shell">
+      <header class="doc-header">
+        <div class="doc-kicker">Aximmetry Tracked Green Screen Learning and Review Roadmap</div>
+<h1>学習・復習ロードマップ v0.2.3</h1>
+      </header>
+      <main class="doc-main">
+        <blockquote class="callout callout-info"><p><strong class="callout-label">補足</strong><br />
+この資料は、本資料で扱う内容を整理し、Aximmetry公式Learnやデバイス資料を開きながら、学習や復習を進めやすくするためのロードマップです。<br />
+操作画面のすべてをここに書くのではなく、<strong>何を理解し、どこを確認し、どの公式ページを次に開くべきか</strong> を簡潔に整理することを主目的にしています。<br />
+学習・復習の順路としても、用語や参照先を確認するための一覧としても使えます。
+トレーニングを受けた方の復習用としてはもちろん、一部の講義だけ受けた方や、導入説明後に抜けた内容を補いながら確認したい方にも役立つようにまとめています。</p>
+</blockquote>
+<hr />
+<h2 id="_1">このロードマップの使い方</h2>
+<h3 id="1">1. まず全体像をつかむ</h3>
+<p>最初に <strong>システム概要</strong> を読み、映像・レンズ情報・トラッキング情報の3系統がどこから来て、どこで統合されるのかを理解します。</p>
+<h3 id="2">2. 次に「背景側」の前提を整える</h3>
+<p>Aximmetryの画面を触る前に、<strong>AX Scene / Unreal準備</strong> を確認します。<br />
+ここでの目的は、Aximmetryに渡す前の <strong>受け皿</strong> を整えることです。</p>
+<h3 id="3">3. その後に「同期」の意味を理解する</h3>
+<p><strong>システム同期とキャリブレーション</strong> を読み、Tracking Calibration と Nodal Offset が何のために必要なのかを理解します。<br />
+ここを飛ばすと、後段のズレや違和感が「何となく合わない」ままになります。</p>
+<h3 id="4">4. 本資料のトラッキングカメラワークフローを通す</h3>
+<p><strong>トラッキングカメラワークフロー</strong> から、Aximmetry側の入力、遅延調整、同期、キーイング、出力を順番に復習します。</p>
+<h3 id="5">5. つまずいたら症状から引く</h3>
+<p>途中で詰まったら、<strong>症状別トラブルシューティング</strong> に戻ります。</p>
+<hr />
+<h2 id="_2">このロードマップの見取り図</h2>
+<ol>
+<li><strong>システム概要</strong>: 3系統の信号と役割分担をつかむ</li>
+<li><strong>AX Scene / Unreal準備</strong>: 背景側の受け皿を整える</li>
+<li><strong>システム同期とキャリブレーション</strong>: ズレの原因になる同期の意味を理解する</li>
+<li><strong>トラッキングカメラワークフロー</strong>: 本資料の主題となる順番でI/Oから出力まで追う</li>
+<li><strong>キーイングとライブ出力</strong>: キーイングと当日収録の考え方を押さえる</li>
+<li><strong>再生・記録・オフライン確認</strong>: 何を残し、何に使うかを分けて理解する</li>
+<li><strong>症状別トラブルシューティング</strong>: 症状から見る場所を絞る</li>
+<li><strong>実践的な発展項目</strong>: 本流の外側にある発展項目の入口を知る</li>
+<li><strong>目的別索引</strong>: 目的から参照先を引けるようにする</li>
+</ol>
+<hr />
+<h2 id="scope">この資料の対象範囲 / Scope</h2>
+<p>この資料の本流は、<strong>Aximmetryで行うトラッキングカメラでのグリーンバック制作</strong> です。</p>
+<ul>
+<li>対象: トラッキングカメラを使ったグリーンバック合成のワークフロー</li>
+<li>主軸: AX Scene / Unreal準備、Aximmetry入力、同期、キーイング、ライブ出力、記録と再生、トラブルシューティング</li>
+<li>本資料で詳しく触れていないもの: ARの詳細、LED Wallワークフローの詳細、トラッキングなしのヴァーチャルカメラ運用の詳細</li>
+</ul>
+<blockquote class="callout callout-info"><p><strong class="callout-label">補足</strong><br />
+これらを否定する意図ではなく、まず <strong>1本の勝ち筋を理解し、再現できるようにする</strong> ためにスコープを絞っています。
+本文中に出てくる機材名やデバイス名は、構成をイメージしやすくするための例です。実際の導入構成に応じて読み替えてください。</p>
+</blockquote>
+<hr />
+<h2 id="terminology">用語辞書 / Terminology</h2>
+<p>先に言葉の意味を引きたいときは、このセクションを使ってください。</p>
+<ul>
+<li>
+<p><strong>AX Scene Editor</strong><br />
+  Aximmetryが提供する、Unreal Editorをベースにしたカスタム版です。2026.1.0では、ライセンス体系の変更に伴って Unreal 関連コンポーネントの名称整理が行われ、現行資料では <strong>AX Scene Editor</strong> という名称が使われます。<br />
+  一方で、<strong>2025.3.0以前のバージョンを継続利用する場合</strong> や、旧資料・動画チュートリアルでは <strong>Unreal Editor for Aximmetry</strong> という旧名称が使われます。<br />
+  本資料では <strong>AX Scene Editor</strong> を基本表記とし、必要に応じて旧名称 <strong>Unreal Editor for Aximmetry</strong> も併記します。</p>
+</li>
+<li>
+<p><strong>グリーンバック / Green Screen</strong><br />
+  日本語本文では <strong>グリーンバック</strong> と表記します。<br />
+  ただし、Aximmetry公式Learnや公式ページ名では <strong>Green Screen</strong> という表記が使われるため、リンク名や正式名称はそのまま残します。</p>
+</li>
+<li>
+<p><strong>トラッキングカメラ / Tracked Camera</strong><br />
+  実際のカメラの位置や回転をトラッキングしながら、AximmetryでCGと合成していく考え方です。<br />
+  本資料では、この前提で進むワークフローを主題として扱います。</p>
+</li>
+<li>
+<p><strong>ヴァーチャルカメラ / Virtual Camera</strong><br />
+  トラッキング付きの実写カメラを前提とせず、ヴァーチャルカメラを操作して画作りを進める考え方です。<br />
+  たとえば、定点のカメラ素材に対して疑似的にカメラワークを加えるような考え方もここに含まれます。<br />
+  本資料では詳細は扱わず、トラッキングカメラと区別して考えます。</p>
+</li>
+<li>
+<p><strong>トラッキングカメラワークフロー / Tracked Camera Workflow</strong><br />
+  本資料で主題として扱う、トラッキングカメラで行うグリーンバック制作の流れです。<br />
+  業界全体の標準名称としてではなく、この資料内での呼び方として使います。</p>
+</li>
+<li>
+<p><strong>ライブ出力 / Live Output</strong><br />
+  当日に安全に残すための出力・収録。</p>
+</li>
+<li>
+<p><strong>入力記録 / Input Recording</strong><br />
+  後で再生確認やオフラインレンダリングを行うために、入力映像やトラッキングデータを記録しておく考え方です。</p>
+</li>
+<li>
+<p><strong>再生確認 / Playback</strong><br />
+  本資料では、現場でのプレイバック確認と、記録した素材をあとで見直す確認の両方を含む言葉として使います。  </p>
+</li>
+<li>
+<p><strong>トラッキングキャリブレーション / Tracking Calibration</strong><br />
+  トラッキング空間とヴァーチャル空間の基準を合わせる工程です。</p>
+</li>
+<li>
+<p><strong>トラッキングオフセット / Tracking Offset</strong><br />
+  トラッキングセンサーとカメラ側の基準位置のズレを扱う補正です。<br />
+  手動または専用ソフトウェアで算出することがあります。</p>
+</li>
+<li>
+<p><strong>レンズキャリブレーション / Lens Calibration</strong><br />
+  レンズの光学特性を計測する工程です。<br />
+  歪みや視点位置の変化などを扱い、チェッカーボードなどと専用ソフトウェアで算出することが多いです。<br />
+  カメラや連携方式によっては、この工程を前提にしない運用もあります。</p>
+</li>
+<li>
+<p><strong>レンズプロファイル / Lens Profile</strong><br />
+  レンズキャリブレーションの結果をまとめたデータです。<br />
+  ズームやフォーカスに応じた補正に使われます。<br />
+  レンズキャリブレーション済みの環境では、レンズごとにこのプロファイルを切り替えて運用することがあります。</p>
+</li>
+<li>
+<p><strong>ノーダルオフセット / Nodal Offset</strong><br />
+  トラッキングデバイスの基準点と、実際のレンズの視点（瞳入射位置）のズレを補正する工程です。</p>
+</li>
+</ul>
+<hr />
+<h1 id="1-system-overview">1. システム概要 / System Overview</h1>
+<h2 id="_3">この章でつかむこと</h2>
+<p>最初に、システム全体の <strong>役割分担</strong> と <strong>情報の流れ</strong> を頭の中で接続することです。</p>
+<p><strong>まず開く参照先</strong>
+- <strong>Day1配布スライド</strong></p>
+<h2 id="_4">最初に押さえること</h2>
+<p>ここで重要なのは、1つのソフトを覚えることではありません。<br />
+<strong>複数の信号が別経路で入り、Aximmetryで統合される</strong> と理解することです。</p>
+<h3 id="3_1">3つの流れ</h3>
+<p>以下の機材名は、信号の流れを具体的にイメージしやすくするための例です。</p>
+<ol>
+<li>
+<p><strong>映像信号</strong><br />
+   例: Canon C400 からの SDI 映像</p>
+</li>
+<li>
+<p><strong>レンズ情報</strong><br />
+   例: Canon C400 の CV Protocol などによる、ズームやフォーカス距離、歪みや絞りなどのレンズデータ</p>
+</li>
+<li>
+<p><strong>トラッキング情報</strong><br />
+   例: REtracker Bliss から来る位置・回転系のデータ</p>
+</li>
+</ol>
+<p>Aximmetry は、これらを <strong>統合して、合成し、出力する場所</strong> です。<br />
+AX Scene Editor や Unreal は、主に <strong>背景側を作る場所</strong> です。</p>
+<h2 id="mental-model">たとえ話 / Mental Model</h2>
+<ul>
+<li><strong>AX SceneやUnreal = 舞台美術を作る場所</strong></li>
+<li><strong>Aximmetry = 本番の舞台監督やスイッチャー、合成卓の役割を担う場所</strong></li>
+<li><strong>カメラ・レンズ・トラッカー = 現実世界の演者の情報源</strong></li>
+</ul>
+<p>つまり、Unreal だけでも、Aximmetry だけでも成立しません。<br />
+<strong>背景の準備</strong> と <strong>現実入力の統合</strong> の両方が必要です。</p>
+<h2 id="_5">チェックポイント</h2>
+<ul>
+<li>[ ] カメラ、トラッカー、Aximmetry、AX Scene Editor の役割を言葉で説明できる</li>
+<li>[ ] 映像・レンズ情報・トラッキング情報の3系統を説明できる</li>
+<li>[ ] なぜそれらが別経路で来るのかを理解している</li>
+<li>[ ] Aximmetry が「背景を作る場所」ではなく「統合・合成・出力の場所」だと説明できる</li>
+</ul>
+<h2 id="_6">よくある誤解</h2>
+<ul>
+<li>Aximmetry と Unreal の役割を同じものとして捉えてしまう</li>
+<li>映像とレンズ情報も同じ経路で来ると思ってしまう</li>
+<li>トラッキングが来ていれば、それだけで成立していると思ってしまう</li>
+</ul>
+<hr />
+<h1 id="2-ax-scene-unreal-ax-scene-unreal-setup">2. AX Scene / Unreal準備 / AX Scene / Unreal Setup</h1>
+<h2 id="_7">この章でつかむこと</h2>
+<p>Aximmetryの画面へ入る前に、<strong>背景側の受け皿</strong> を整えることです。</p>
+<p><strong>まず開く参照先</strong>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-in-unreal-editor/introduction-to-unreal-editor-for-aximmetry/">Introduction to AX Scene Editor</a>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-for-aximmetry-de/preparing-the-unreal-project/">Preparing the Unreal Project</a>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/unreal-scene-setup-green-scre">Unreal Scene Setup (Green Screen)</a></p>
+<h2 id="_8">最初に押さえること</h2>
+<p>Aximmetry側で映像やトラッキングを受けても、背景側の前提が崩れていると、後段で次のような問題に直面します。</p>
+<ul>
+<li>背景スケールが不自然</li>
+<li>CGと実写の床が合わない</li>
+<li>シーン内の表示物やオブジェクトを、どう配置すべきか分かりにくい</li>
+<li>何がAximmetry側の問題で、何がUnreal側の問題か分からない</li>
+</ul>
+<blockquote class="callout callout-info"><p><strong class="callout-label">補足</strong><br />
+つまり、Aximmetryに入る前に <strong>背景側の最低限の成立条件</strong> を押さえる必要があります。</p>
+</blockquote>
+<h2 id="_9">この章で押さえること</h2>
+<ul>
+<li>AX Scene Editor は、Aximmetry向けのUnreal側編集環境である</li>
+<li>Aximmetry Camera 前提のシーン準備が必要である</li>
+<li>マップ、プロジェクト設定、プロジェクト変換、実行用データの書き出しなど、Aximmetry連携前提の準備がある</li>
+</ul>
+<h2 id="_10">最低限の確認観点</h2>
+<h3 id="a-project-version">A. Project / Version</h3>
+<ul>
+<li>Aximmetry と AX Scene Editor の対応バージョンを意識する</li>
+<li>既存のUnrealプロジェクトを開く場合は、変換の扱いに注意する</li>
+<li>バージョン更新は元に戻せない場合があるため、コピーやバックアップを前提に扱う</li>
+</ul>
+<h3 id="b-project-settings">B. Project Settings</h3>
+<ul>
+<li>Startup Map と Game Default Map を確認する</li>
+<li>Aximmetry向けに必要なプロジェクト設定を確認する</li>
+<li>「普通のUnrealプロジェクト」ではなく「Aximmetryに渡すプロジェクト」である意識を持つ</li>
+</ul>
+<h3 id="c-aximmetry-camera">C. Aximmetry Camera 前提</h3>
+<ul>
+<li>Aximmetry は Aximmetry Camera Blueprint を通じて Unreal シーンにアクセスする</li>
+<li>単に Cine Camera があれば十分、とは考えない</li>
+<li>トラッキングワークフローの前提に合ったカメラ設定であることを確認する</li>
+</ul>
+<h3 id="d-scene">D. Scene 側の最低限</h3>
+<ul>
+<li>床の見え方</li>
+<li>シーンスケール</li>
+<li>被写体が立つ想定位置</li>
+<li>billboard（常にカメラ正面を向く表示）や合成前提で破綻しにくい構成</li>
+</ul>
+<h2 id="mental-model_1">たとえ話 / Mental Model</h2>
+<p>この章は、<strong>背景セットを組む章</strong> です。<br />
+カメラ信号やトラッキングがどれだけ正しくても、背景側の寸法感や入口が崩れていると、後で全部が不安定に見えます。</p>
+<h2 id="_11">チェックポイント</h2>
+<ul>
+<li>[ ] AX Scene Editor が何か説明できる</li>
+<li>[ ] Aximmetry向けプロジェクトは標準的な Unreal プロジェクトと同じではないと理解している</li>
+<li>[ ] Aximmetry Camera 前提のシーン準備が必要だと説明できる</li>
+<li>[ ] シーンスケール、床、被写体位置の前提を見直せる</li>
+</ul>
+<h2 id="_12">よくある誤解</h2>
+<ul>
+<li>Unreal で絵作りができていれば、そのままAximmetryでも使えると思ってしまう</li>
+<li>トラッキングワークフローなのに、カメラ前提を曖昧なまま進めてしまう</li>
+<li>Aximmetry側で頑張れば、シーン側の問題も吸収できると思ってしまう</li>
+</ul>
+<hr />
+<h1 id="3-system-synchronization-and-calibration">3. システム同期とキャリブレーション / System Synchronization and Calibration</h1>
+<h2 id="_13">この章でつかむこと</h2>
+<p>Tracking Calibration と Nodal Offset は、単なる数値調整ではなく、<strong>現実とヴァーチャルを同期させるための工程</strong> だと理解することです。</p>
+<p><strong>まず開く参照先</strong>
+- <strong>Day1配布スライド</strong>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a>
+- REtracker Bliss: <strong>配布された REtracker Bliss 日本語マニュアル</strong></p>
+<h2 id="_14">最初に押さえること</h2>
+<p>この資料では、キャリブレーションを早い段階で確認します。<br />
+理由は、レンズプロファイルや外部レンズデータの前提がないと進みにくいからだけではありません。<br />
+<strong>全系統を同期するという概念</strong> を、早めに理解してもらうためです。</p>
+<h2 id="_15">この章で押さえること</h2>
+<h3 id="tracking-calibration">Tracking Calibration</h3>
+<p>トラッキング空間とヴァーチャル側の基準を合わせる工程です。</p>
+<h3 id="nodal-offset">Nodal Offset</h3>
+<p>トラッキングデバイスの基準点と、実際のレンズの視点（瞳入射位置）のズレを補正する工程です。</p>
+<p>この2つは、後段のキーイングや再生確認の話とは別物に見えて、実はかなり深く関係しています。</p>
+<ul>
+<li>背景位置が不自然</li>
+<li>パン・チルト・移動で違和感が出る</li>
+<li>床が滑るように見える</li>
+<li>「何となく合わない」</li>
+</ul>
+<p>こうした問題の原因が、ここにあることがあります。</p>
+<h2 id="mental-model_2">たとえ話 / Mental Model</h2>
+<ul>
+<li><strong>Calibration = 現実とヴァーチャルの定規を合わせる</strong></li>
+<li><strong>Nodal Offset = トラッカーの基準位置と、実際のレンズの視点を一致させる</strong></li>
+</ul>
+<p>トラッキングデバイスは、CG上ではカメラの視点の基準として扱われます。<br />
+しかし実際には、トラッキングデバイスをレンズの視点そのもの（瞳入射位置）に取り付けることはできません。<br />
+そのため、取り付け位置と実際の見え方のズレを補正する必要があります。</p>
+<p>トラッキングセンサーとカメラセンサーの位置関係は、どのカメラやトラッキング構成でも初回測定が必要です。<br />
+そのうえで、レンズ側をどう扱うかは構成によって異なります。<br />
+Canon C400 では、瞳入射位置を含む補正情報が CV Metadata によって更新されるため、通常のレンズキャリブレーションを前提にしない運用が可能です。<br />
+そのため、ズームやレンズ交換のたびに、オペレーターがレンズプロファイルを切り替えたり、レンズキャリブレーションをやり直したりする負担を減らせます。<br />
+C400 以外でも、レンズキャリブレーション済みであれば、毎回すべてを手動で入れ直すのではなく、対応するレンズプロファイルを切り替えて運用するのが一般的です。</p>
+<p>補足:</p>
+<ul>
+<li>トラッキングオフセットは、トラッキングセンサーとカメラ側の位置関係を扱う補正です</li>
+<li>レンズキャリブレーションとレンズプロファイルは、レンズの光学特性を計測し、プロファイル化する考え方です</li>
+<li>Canon C400 では、瞳入射位置を含むレンズ側情報が CV Metadata により更新されるため、通常のレンズキャリブレーション工程を前提にしない運用ができます</li>
+<li>Nodal Offset は、それらを踏まえて最終的な見え方を合わせるための補正として理解すると入りやすいです</li>
+</ul>
+<h2 id="_16">後続工程とのつながり</h2>
+<ul>
+<li>ライブ合成の自然さに直結する</li>
+<li>再生確認やトラブルシューティングでも、原因がここに戻ることがある</li>
+<li>ズームや同期、床が滑るような違和感を、単なる遅延の問題と決めつけない</li>
+</ul>
+<h2 id="_17">チェックポイント</h2>
+<ul>
+<li>[ ] Tracking Calibration の役割を説明できる</li>
+<li>[ ] Nodal Offset の役割を説明できる</li>
+<li>[ ] なぜこの理解を早い段階で持つのか説明できる</li>
+<li>[ ] 背景ズレ・床が滑るような違和感がここに起因しうると理解している</li>
+</ul>
+<h2 id="_18">よくある誤解</h2>
+<ul>
+<li>キャリブレーションを、設定が面倒なだけの工程だと見てしまう</li>
+<li>Nodal Offset を、最後に詰める微調整だと思ってしまう</li>
+<li>違和感の原因を、すべて遅延やキーイングに寄せてしまう</li>
+</ul>
+<blockquote class="callout callout-info"><p><strong class="callout-label">補足</strong><br />
+Bliss については、英語動画だけで理解を進めるのは日本語話者には負荷が高いため、まずは <strong>配布された REtracker Bliss 日本語マニュアル</strong> を主参照にするのが適切です。</p>
+</blockquote>
+<hr />
+<h1 id="4-tracked-camera-workflow">4. トラッキングカメラワークフロー / Tracked Camera Workflow</h1>
+<h2 id="_19">この章でつかむこと</h2>
+<p>本資料の主題である、<strong>トラッキングカメラで行うグリーンバック制作の流れ</strong> を理解することです。</p>
+<p><strong>まず開く参照先</strong>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/tracked-camera-compounds/">Tracked Camera Compounds</a></p>
+<h2 id="_20">最初に押さえること</h2>
+<p>この章でいうワークフローは、次の流れです。</p>
+<ul>
+<li>トラッキングカメラを使う</li>
+<li>グリーンバック制作を行う</li>
+<li>Aximmetryで映像・トラッキング・レンズ情報を受ける</li>
+<li>同期を取り、合成し、出力する</li>
+</ul>
+<p>ここでは、ARやLED、トラッキングなしのヴァーチャルカメラ運用の詳細は扱いません。</p>
+<h2 id="_21">流れの全体像</h2>
+<ol>
+<li>背景側の準備</li>
+<li>Aximmetry 側で映像・トラッキング・レンズ情報を受ける</li>
+<li>キャリブレーションとレンズ側補正の前提を踏まえて同期を確認する</li>
+<li>トラッキング遅延、ズーム遅延、タイムコード同期を確認する</li>
+<li>キーイングを行う</li>
+<li>ライブ出力を出す</li>
+<li>レコーダーへ安全に残す</li>
+</ol>
+<h2 id="io">I/O設定の基本順</h2>
+<p>Aximmetry 側では、まず INPUTS で通常の進め方を成立させます。</p>
+<h3 id="_22">基本順序</h3>
+<ol>
+<li>Camera Device</li>
+<li>Tracking Device</li>
+<li>レンズとキャリブレーションの前提確認</li>
+<li>Tracking Delay</li>
+<li>Zoom Delay</li>
+<li>Timecode Sync と Zoom Timecode Sync</li>
+<li>Detect Tracking Delay と Detect Zoom Delay</li>
+</ol>
+<h2 id="_23">この章で押さえること</h2>
+<ul>
+<li>まず <strong>来ているか</strong> を確認する</li>
+<li>その後で <strong>合っているか</strong> を確認する</li>
+<li>Detect Tracking Delay と Detect Zoom Delay は、代替手段ではなく標準的な確認フローの一部である</li>
+</ul>
+<h2 id="mental-model_3">たとえ話 / Mental Model</h2>
+<p>この章は、<strong>配線確認 → 同期確認 → 本番成立</strong> の章です。<br />
+いきなりキーイングや出力に進むのではなく、まず信号の成立を確認します。</p>
+<h2 id="_24">チェックポイント</h2>
+<ul>
+<li>[ ] トラッキングカメラワークフローの流れを説明できる</li>
+<li>[ ] カメラ、トラッキング、レンズの順で前提確認できる</li>
+<li>[ ] 「来ているか」と「合っているか」を分けて考えられる</li>
+<li>[ ] Detect Tracking Delay と Detect Zoom Delay が通常フローの一部だと理解している</li>
+</ul>
+<h2 id="_25">よくある誤解</h2>
+<ul>
+<li>映像が来ているので、全体も成立していると思ってしまう</li>
+<li>トラッキングとレンズ情報の確認が曖昧なまま進めてしまう</li>
+<li>遅延検出を、トラブル時だけ使う最後の手段だと誤解する</li>
+</ul>
+<hr />
+<h1 id="5-keying-and-live-output">5. キーイングとライブ出力 / Keying and Live Output</h1>
+<h2 id="_26">この章でつかむこと</h2>
+<p>キーイングを「ソフトのつまみ調整」だけで捉えず、<strong>素材条件 → キーヤー調整 → 最終出力確認</strong> の順番で理解することです。</p>
+<p><strong>まず開く参照先</strong>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/keying-setup-tracked-camera/">Keying Setup (Tracked Camera)</a>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/keying/keying/">Keying</a></p>
+<h2 id="_27">最初に押さえること</h2>
+<p>キーイングは、ソフトだけで決まりません。<br />
+先に整えるべきは、次のような <strong>物理条件</strong> です。</p>
+<ul>
+<li>背景の状態</li>
+<li>照明</li>
+<li>被写体と背景の距離</li>
+<li>衣装や反射物の条件</li>
+</ul>
+<p>その後で、Aximmetry 側のキーイング調整に入ります。</p>
+<h2 id="_28">キーイングの確認順</h2>
+<ol>
+<li>背景条件を確認する</li>
+<li>照明を確認する</li>
+<li>被写体距離を確認する</li>
+<li>Aximmetry 側で調整する</li>
+<li>最終出力で確認する</li>
+</ol>
+<h2 id="_29">ライブ出力の考え方</h2>
+<p>この段階で重要なのは、<strong>当日に安全に残す</strong> ことです。</p>
+<ul>
+<li>Aximmetry の合成映像を出力する</li>
+<li>レコーダー側で受ける</li>
+<li>タイムコードマスターを基準に運用をそろえる</li>
+<li>「後で作り込む」より「当日に安全に残す」が主目的</li>
+</ul>
+<h2 id="mental-model_4">たとえ話 / Mental Model</h2>
+<p>キーイングは、<strong>料理の味付け</strong> に似ています。<br />
+材料の状態が悪いまま、調味料だけで全部を解決しようとしても限界があります。</p>
+<h2 id="_30">チェックポイント</h2>
+<ul>
+<li>[ ] キーイングは物理条件が先だと説明できる</li>
+<li>[ ] キーイングの確認順を説明できる</li>
+<li>[ ] 最終出力を定期的に確認する意味を説明できる</li>
+<li>[ ] ライブ出力、レコーダー、当日収録の目的を説明できる</li>
+</ul>
+<h2 id="_31">よくある誤解</h2>
+<ul>
+<li>ソフトウェアキーヤーだけで解決できると思ってしまう</li>
+<li>モニターモードと最終出力を同じものとして見てしまう</li>
+<li>当日収録と Input Recording の目的を同じものだと思ってしまう</li>
+</ul>
+<hr />
+<h1 id="6-replay-recording-and-offline-review">6. 再生・記録・オフライン確認 / Replay, Recording, and Offline Review</h1>
+<h2 id="_32">この章でつかむこと</h2>
+<p>当日収録と、後工程用の記録と再生を混同せず、<strong>何を残し、何に使うのか</strong> を理解することです。</p>
+<p><strong>まず開く参照先</strong>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/setting-up-inputs-outputs-for-virtual-production/video/recording/how-to-record-camera-tracking-data/">How to Record Camera Tracking Data</a>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a></p>
+<h2 id="_33">最初に押さえること</h2>
+<p>この章で重要なのは、次の2つを分けて考えることです。</p>
+<ul>
+<li>当日に安全に残すための収録</li>
+<li>後で再生確認やオフラインレンダリングにつなぐための記録</li>
+</ul>
+<h2 id="_34">この章のキーワード</h2>
+<h3 id="live-rec">当日収録 / Live Rec</h3>
+<p>Aximmetry の合成映像を外部レコーダーに送り、本番中に安全に残す考え方。</p>
+<h3 id="input-recording">Input Recording</h3>
+<p>後でオフラインレンダリングや再生確認を行うために、<strong>生のカメラ入力映像</strong> と <strong>生のトラッキングデータ</strong> を残す考え方。</p>
+<h3 id="use-input-tc">Use Input TC</h3>
+<p>カメラからのタイムコードを使って、あとで照合や再生確認、後工程に生かす考え方。</p>
+<h3 id="tracking-only">Tracking Only</h3>
+<p>トラッキングを主目的として残したい時の考え方。</p>
+<h3 id="playback-replay">Playback / Replay</h3>
+<p>事前収録した映像とトラッキングデータを使って、後から再生確認する流れ。</p>
+<h2 id="_35">使いどころ</h2>
+<ul>
+<li>そのときの設定を見直す</li>
+<li>違和感の原因を切り分ける</li>
+<li>制作ごとの改善点を見つける</li>
+<li>高画質素材とトラッキングをあとで合わせる</li>
+<li>オフラインレンダリングや後工程につなぐ</li>
+</ul>
+<h2 id="_36">見るポイント</h2>
+<ul>
+<li>背景とのなじみ</li>
+<li>トラッキングの違和感</li>
+<li>ズームや同期の違和感</li>
+<li>キーイングの破綻</li>
+<li>収録時に見逃した問題</li>
+</ul>
+<h2 id="mental-model_5">たとえ話 / Mental Model</h2>
+<ul>
+<li><strong>当日収録 = その日の完成料理を残す</strong></li>
+<li><strong>Input Recording = 後で別の調理ができるよう、素材を残す</strong></li>
+</ul>
+<p>この違いが分かると、記録まわりの混線がかなり減ります。</p>
+<h2 id="_37">チェックポイント</h2>
+<ul>
+<li>[ ] 当日収録と Input Recording の目的の違いを説明できる</li>
+<li>[ ] Use Input TC の意味を説明できる</li>
+<li>[ ] 再生確認が何のためにあるか説明できる</li>
+<li>[ ] オフライン確認で何を見るか思い出せる</li>
+</ul>
+<h2 id="_38">よくある誤解</h2>
+<ul>
+<li>合成映像を録ることと、トラッキングデータを残すことを同じだと思ってしまう</li>
+<li>Replay を単なる再生機能として見てしまう</li>
+<li>タイムコードを、なくても何とかなるものだと軽く見てしまう</li>
+</ul>
+<hr />
+<h1 id="7-troubleshooting-by-symptom">7. 症状別トラブルシューティング / Troubleshooting by Symptom</h1>
+<h2 id="_39">この章でつかむこと</h2>
+<p>問題が起きた時に、<strong>症状 → 見る場所 → 原因カテゴリ → 戻る順番</strong> で考えられるようにすることです。</p>
+<p><strong>まず開く参照先</strong>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a>
+- REtracker Bliss: <strong>配布された REtracker Bliss 日本語マニュアル</strong></p>
+<h2 id="_40">基本姿勢</h2>
+<p>いきなり全部を疑わず、<strong>症状に応じて見る場所を絞る</strong> ことが重要です。</p>
+<hr />
+<h2 id="a">症状A: トラッカーが来ない</h2>
+<h3 id="_41">まず見る場所</h3>
+<ul>
+<li>Tracking Device</li>
+<li>デバイス接続状態</li>
+<li>Bliss 側動作状態</li>
+<li>ネットワークと接続経路</li>
+</ul>
+<h3 id="_42">まず疑うこと</h3>
+<ul>
+<li>トラッカー自体が動いていない</li>
+<li>Aximmetry 側のマッピングが違う</li>
+<li>Bliss 側の出力設定が違う</li>
+<li>ネットワーク疎通や接続が不安定</li>
+</ul>
+<h3 id="_43">戻る順番</h3>
+<ol>
+<li>Bliss 側の状態確認</li>
+<li>Host PC との接続確認</li>
+<li>Aximmetry側で Tracking Device を確認</li>
+<li>キャリブレーションや補正前提の確認</li>
+</ol>
+<h3 id="_44">開く資料</h3>
+<ul>
+<li><strong>配布された REtracker Bliss 日本語マニュアル</strong></li>
+<li>REtracker Official Tutorials: <a href="https://www.retracker.co/tutorials">Tutorials</a></li>
+<li>Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a></li>
+</ul>
+<hr />
+<h2 id="b-cv-protocol">症状B: レンズ情報 / CV Protocol が来ない</h2>
+<h3 id="_45">まず見る場所</h3>
+<ul>
+<li>External Lens Data</li>
+<li>Camera 側 CV Protocol 設定</li>
+<li>Ethernet 系の接続</li>
+</ul>
+<h3 id="_46">まず疑うこと</h3>
+<ul>
+<li>映像は来ていてもレンズデータは別経路なので未成立</li>
+<li>カメラ側設定の見落とし</li>
+<li>Aximmetry 側の受け口が違う</li>
+</ul>
+<h3 id="_47">戻る順番</h3>
+<ol>
+<li>カメラ側のプロトコル設定</li>
+<li>Ethernet 経路</li>
+<li>Aximmetry 側レンズデータ受信設定</li>
+<li>レンズデータ更新の確認</li>
+</ol>
+<hr />
+<h2 id="c">症状C: ズームだけ合わない</h2>
+<h3 id="_48">まず見る場所</h3>
+<ul>
+<li>Zoom Delay</li>
+<li>Zoom Timecode Sync</li>
+<li>レンズデータの更新状態</li>
+</ul>
+<h3 id="_49">まず疑うこと</h3>
+<ul>
+<li>トラッキングは合っているがズームの同期がズレている</li>
+<li>レンズデータ更新が不完全</li>
+<li>レンズ側補正の前提</li>
+</ul>
+<h3 id="_50">戻る順番</h3>
+<ol>
+<li>レンズ情報の到着確認</li>
+<li>zoom delay 確認</li>
+<li>zoom timecode sync 確認</li>
+<li>レンズ側補正の前提確認</li>
+</ol>
+<hr />
+<h2 id="d-auto">症状D: AUTO で映像が来ない</h2>
+<h3 id="_51">まず見る場所</h3>
+<ul>
+<li>Camera Mode</li>
+<li>解像度とfps</li>
+<li>キャプチャーカード側の認識</li>
+</ul>
+<h3 id="_52">まず疑うこと</h3>
+<ul>
+<li>古いキャプチャーカードや条件によって AUTO がうまく効かない</li>
+<li>手動での解像度・fps指定が必要</li>
+</ul>
+<h3 id="_53">戻る順番</h3>
+<ol>
+<li>ケーブルとキャプチャー側の確認</li>
+<li>Camera Mode を見直す</li>
+<li>手動で解像度とfpsを指定</li>
+<li>他入力と切り分ける</li>
+</ol>
+<hr />
+<h2 id="e">症状E: タイムコードが噛み合わない</h2>
+<h3 id="_54">まず見る場所</h3>
+<ul>
+<li>Timecode Sync</li>
+<li>Zoom Timecode Sync</li>
+<li>Use Input TC</li>
+<li>マスター側の前提</li>
+</ul>
+<h3 id="_55">まず疑うこと</h3>
+<ul>
+<li>同じタイムコードを見ていない</li>
+<li>Use Input TC を使う前提が崩れている</li>
+<li>当日収録とオフライン確認の前提が混ざっている</li>
+</ul>
+<h3 id="_56">戻る順番</h3>
+<ol>
+<li>マスターの確認</li>
+<li>カメラ由来タイムコードの確認</li>
+<li>Aximmetry側の同期設定を確認</li>
+<li>記録と再生の目的を再確認</li>
+</ol>
+<hr />
+<h2 id="mental-model_6">たとえ話 / Mental Model</h2>
+<p>トラブルシューティングは、<strong>暗闇で全部を探す作業</strong> ではありません。<br />
+<strong>症状から部屋を絞って探す作業</strong> です。</p>
+<h2 id="_57">チェックポイント</h2>
+<ul>
+<li>[ ] 症状から見る場所を絞れる</li>
+<li>[ ] 全部を同時に疑わず、順番に戻れる</li>
+<li>[ ] 問題がキャリブレーション起因か、信号起因か、同期起因かを切り分けようとできる</li>
+</ul>
+<hr />
+<h1 id="8-practical-extensions">8. 実践的な発展項目 / Practical Extensions</h1>
+<h2 id="_58">この章でつかむこと</h2>
+<p>本流であるトラッキングカメラでのグリーンバックワークフローを理解した上で、<strong>AX Scene EditorやUnreal側へ少しだけ手を伸ばす</strong> ための入口を持つことです。</p>
+<p><strong>まず開く参照先</strong>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-in-unreal-editor/introduction-to-unreal-editor-for-aximmetry/">Introduction to AX Scene Editor</a>
+- Aximmetry Learn: <a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-for-aximmetry-de/preparing-the-unreal-project/">Preparing the Unreal Project</a></p>
+<h2 id="_59">この章の位置づけ</h2>
+<p>ここはメインワークフローの土台ではなく、<strong>発展項目</strong> です。<br />
+最初の1周では無理に触れず、本流を通せてから戻ってくれば十分です。<br />
+ただし、「Aximmetryはライブ合成だけで終わらない」ことを実感するには有効です。</p>
+<h2 id="_60">最初に触れたい項目</h2>
+<ol>
+<li>Virtual Screen Asset</li>
+<li>Get Aximmetry Video</li>
+<li>simple Transformation</li>
+</ol>
+<h2 id="_61">この章で押さえること</h2>
+<ul>
+<li>Aximmetryの映像を UnrealやAX Scene側で受ける考え方がある</li>
+<li>Unreal 側オブジェクト操作の入口がある</li>
+<li>深い Blueprint 理論に入らなくても、実践的なレシピとして触れられる</li>
+</ul>
+<h2 id="_62">チェックポイント</h2>
+<ul>
+<li>[ ] Virtual Screen Asset の役割を説明できる</li>
+<li>[ ] Get Aximmetry Video の意味を説明できる</li>
+<li>[ ] simple Transformation を実践的なレシピとして位置づけられる</li>
+<li>[ ] ここがメインワークフローではなく発展項目だと理解している</li>
+</ul>
+<blockquote class="callout callout-warning"><p><strong class="callout-label">注意</strong><br />
+Virtual Screen や Blueprint を使った発展項目の細かな操作はバージョンに影響されやすいため、本文では概念と役割に集中し、手順は公式Learnを参照してください。</p>
+</blockquote>
+<hr />
+<h1 id="9-purpose-index">9. 目的別索引 / Purpose Index</h1>
+<blockquote>
+<p>何をしたいかから引けるように整理しています。<br />
+同じページが複数の目的にまたがる場合は、探しやすさを優先して重複して載せています。</p>
+</blockquote>
+<h2 id="_63">まず全体像をつかみたい</h2>
+<ul>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/introduction-to-green-screen-production/">Introduction to Green Screen Production</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/tracked-camera-compounds/">Tracked Camera Compounds</a></li>
+</ul>
+<h2 id="_64">背景側の準備を確認したい</h2>
+<ul>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-in-unreal-editor/introduction-to-unreal-editor-for-aximmetry/">Introduction to AX Scene Editor</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-for-aximmetry-de/preparing-the-unreal-project/">Preparing the Unreal Project</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/unreal-scene-setup-green-scre">Unreal Scene Setup (Green Screen)</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/which-aximmetry-is-right-for-you/aximmetry-render-components/">Aximmetry Render Components</a></li>
+</ul>
+<h2 id="inputs-sync">入力と同期 / Inputs / Sync を確認したい</h2>
+<ul>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/scene-control-panel/">Scene Control Panel</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/tracked-camera-compounds/">Tracked Camera Compounds</a></li>
+</ul>
+<h2 id="_65">キーイングとライブ出力を確認したい</h2>
+<ul>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/keying-setup-tracked-camera/">Keying Setup (Tracked Camera)</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/keying/keying/">Keying</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a></li>
+</ul>
+<h2 id="offline-review">記録 / 再生 / offline review を確認したい</h2>
+<ul>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/setting-up-inputs-outputs-for-virtual-production/video/recording/how-to-record-camera-tracking-data/">How to Record Camera Tracking Data</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/green-screen-production/tracked-camera-workflow/inputs-tracked-camera/">Inputs (Tracked Camera)</a></li>
+</ul>
+<h2 id="_66">発展項目を確認したい</h2>
+<ul>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-in-unreal-editor/introduction-to-unreal-editor-for-aximmetry/">Introduction to AX Scene Editor</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-for-aximmetry-de/preparing-the-unreal-project/">Preparing the Unreal Project</a></li>
+<li><a href="https://aximmetry.com/learn/virtual-production-workflow/which-aximmetry-is-right-for-you/aximmetry-render-components/">Aximmetry Render Components</a></li>
+</ul>
+<h2 id="retracker-bliss">REtracker Bliss を確認したい</h2>
+<h3 id="_67">推奨する参照順</h3>
+<ol>
+<li><strong>配布された REtracker Bliss 日本語マニュアル</strong></li>
+<li>公式製品ページ</li>
+<li>公式チュートリアル</li>
+</ol>
+<h3 id="_68">公式ページ</h3>
+<ul>
+<li><a href="https://www.retracker.co/retracker-bliss">REtracker BLISS product page</a></li>
+<li><a href="https://www.retracker.co/tutorials">REtracker Tutorials</a></li>
+</ul>
+<blockquote class="callout callout-info"><p><strong class="callout-label">補足</strong><br />
+日本語話者にとっては、Bliss の英語動画だけで再現するのは難しいため、まずは <strong>配布された REtracker Bliss 日本語マニュアル</strong> を主参照にするのが望ましいです。</p>
+</blockquote>
+<hr />
+<h1 id="final-review-checklist">最終確認チェックリスト / Final Review Checklist</h1>
+<ul>
+<li>[ ] システム全体の3系統を説明できる</li>
+<li>[ ] 背景側の最低限準備を説明できる</li>
+<li>[ ] キャリブレーションと Nodal Offset の役割を説明できる</li>
+<li>[ ] トラッキングカメラワークフローを説明できる</li>
+<li>[ ] キーイングは物理条件が先だと説明できる</li>
+<li>[ ] 当日収録と Input Recording の違いを説明できる</li>
+<li>[ ] 再生確認とオフライン確認の目的を説明できる</li>
+<li>[ ] 症状から見る場所を絞って考えられる</li>
+<li>[ ] 発展項目とメインワークフローを混同していない</li>
+</ul>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const body = document.body;
+      const button = document.getElementById("toc-toggle");
+      if (!button) return;
+      button.addEventListener("click", function () {
+        const collapsed = body.classList.toggle("toc-collapsed");
+        button.textContent = collapsed ? "目次を表示" : "目次を隠す";
+        button.setAttribute("aria-expanded", String(!collapsed));
+      });
+    })();
+  </script>
+
+</body>
+</html>

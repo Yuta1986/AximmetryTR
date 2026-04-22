@@ -690,9 +690,9 @@ Unreal 側でオブジェクトや演出を動かしたい人、Aximmetry から
 
 **つながる既存項目**
 
-- Virtual Screen Asset
-- Get Aximmetry Video
-- simple Transformation
+- [Aximmetry Virtual Screen Asset / Virtual Screens in Unreal from Aximmetry](https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-in-ax-scene-editor/advanced-information-and-features/virtual-screens-in-unreal-from-aximmetry/)
+- [Get Aximmetry Video](https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-in-ax-scene-editor/advanced-information-and-features/virtual-screens-in-unreal-from-aximmetry/)
+- [Get Aximmetry Transformation](https://aximmetry.com/learn/virtual-production-workflow/obtaining-graphics-and-virtual-assets/creating-content-in-ax-scene-editor/additional-control-with-blueprints/#get-aximmetry-transformation)
 
 ### AximmetryでGUI / Control Boardを作りたい人へ
 

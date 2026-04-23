@@ -30,7 +30,7 @@
 
 ## リポジトリ構成メモ
 
-- 現行の生成物: `exports/<pattern>/`
+- 現行の生成物: `build/exports/<theme>/<toc-mode>/`
 - 旧生成物の退避先: `Achive/exports/`
 - 旧版のソース保管先: `Achive/guide_versions/`
 - 運用メモと補助資料: `Docs/`
@@ -41,12 +41,12 @@
 - PDF 配布では、PDF のしおり / アウトラインを主役にする
 - `Inline TOC` は本文内に見せる目次
 - `Sidebar TOC` は HTML ブラウザ表示用
-- export 生成物は `exports/<pattern>/` に分ける
+- export 生成物は `build/exports/<theme>/<toc-mode>/` に分ける
 - `<pattern>` は `theme + toc_mode` の組み合わせで管理する
-- 各 `exports/<pattern>/` は live view ではなく、その時点の snapshot
+- 各 `build/exports/<theme>/<toc-mode>/` は live view ではなく、その時点の snapshot
 - Markdown 本文を更新しても、再 export していない他パターンは自動更新されない
 - 内容更新後にパターン間比較をする前は、`Export: Sync Active Markdown (All Patterns)` で全パターンを再生成する
-- source と export のずれを疑うときは、Markdown と各 `exports/<pattern>/` の更新時刻を比較する
+- source と export のずれを疑うときは、Markdown と各 `build/exports/<theme>/<toc-mode>/` の更新時刻を比較する
 - VS Code タスク名は `.vscode/tasks.json` に定義されている
 - 維持するテーマは 3 系統:
 - `default` = 白ベース + 青系アクセントの中立テーマ

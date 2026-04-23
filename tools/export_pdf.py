@@ -32,7 +32,11 @@ def parse_args() -> argparse.Namespace:
         description="Convert Markdown to HTML and PDF with PDF bookmarks via LibreOffice."
     )
     parser.add_argument("input", help="Markdown file to export.")
-    parser.add_argument("--output-dir", default="exports", help="Directory for output files.")
+    parser.add_argument(
+        "--output-dir",
+        default="build/exports",
+        help="Directory for output files.",
+    )
     parser.add_argument(
         "--target",
         choices=["html", "pdf", "both"],
@@ -288,13 +292,13 @@ def normalize_output_name(stem: str) -> str:
     return re.sub(r"[^\w.-]+", "_", stem).strip("_") or "document"
 
 
-def build_pattern_name(theme: str, toc_mode: str) -> str:
-    pattern = theme
-    if toc_mode == "inline":
-        pattern += "_with_inline_toc"
-    elif toc_mode == "sidebar":
-        pattern += "_with_sidebar_toc"
-    return pattern
+def build_pattern_path(base_output_dir: Path, theme: str, toc_mode: str) -> Path:
+    toc_folder = {
+        "none": "none",
+        "inline": "inline",
+        "sidebar": "sidebar",
+    }[toc_mode]
+    return base_output_dir / theme / toc_folder
 
 
 def main() -> None:
@@ -304,7 +308,7 @@ def main() -> None:
 
     output_dir = (WORKSPACE_ROOT / args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    pattern_dir = output_dir / build_pattern_name(args.theme, args.toc_mode)
+    pattern_dir = build_pattern_path(output_dir, args.theme, args.toc_mode)
     pattern_dir.mkdir(parents=True, exist_ok=True)
 
     markdown_text = input_path.read_text(encoding="utf-8")

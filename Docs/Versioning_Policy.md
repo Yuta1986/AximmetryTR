@@ -55,7 +55,7 @@
 - ルート直下には常に最新の配布版だけを置く
 - 旧版の Markdown は `Achive/guide_versions/` に移す
 - 旧版の生成物は `Achive/exports/` に移す
-- 現行版の生成物は `exports/` に置く
+- 現行版の生成物は `build/exports/` に置く
 
 ## 版番号を上げるタイミング
 

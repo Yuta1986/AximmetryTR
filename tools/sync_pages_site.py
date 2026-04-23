@@ -16,7 +16,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("input", help="Markdown file that was exported.")
     parser.add_argument(
         "--exports-dir",
-        default="exports",
+        default="build/exports",
         help="Directory that contains the generated export pattern folders.",
     )
     parser.add_argument(
@@ -52,8 +52,8 @@ def main() -> None:
     site_dir = (WORKSPACE_ROOT / args.site_dir).resolve()
 
     base_name = input_path.stem
-    source_html = exports_dir / "default_with_sidebar_toc" / f"{base_name}.html"
-    source_pdf = exports_dir / "default" / f"{base_name}.pdf"
+    source_html = exports_dir / "default" / "sidebar" / f"{base_name}.html"
+    source_pdf = exports_dir / "default" / "none" / f"{base_name}.pdf"
 
     if not source_html.exists():
         print(f"Missing exported HTML for Pages: {source_html}", file=sys.stderr)

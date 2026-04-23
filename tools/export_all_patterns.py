@@ -27,7 +27,11 @@ def parse_args() -> argparse.Namespace:
         description="Export the active Markdown into every supported pattern folder."
     )
     parser.add_argument("input", help="Markdown file to export.")
-    parser.add_argument("--output-dir", default="exports", help="Directory for output files.")
+    parser.add_argument(
+        "--output-dir",
+        default="build/exports",
+        help="Directory for output files.",
+    )
     return parser.parse_args()
 
 

@@ -22,7 +22,7 @@
         "tools/export_all_patterns.py",
         "${file}",
         "--output-dir",
-        "exports"
+        "build/exports"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -39,7 +39,7 @@
         "--target",
         "pdf",
         "--output-dir",
-        "exports"
+        "build/exports"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -60,7 +60,7 @@
         "--target",
         "pdf",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--toc-mode",
         "inline"
       ],
@@ -79,7 +79,7 @@
         "--target",
         "pdf",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon"
       ],
@@ -98,7 +98,7 @@
         "--target",
         "pdf",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon",
         "--toc-mode",
@@ -119,7 +119,7 @@
         "--target",
         "pdf",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon-dark"
       ],
@@ -138,7 +138,7 @@
         "--target",
         "pdf",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon-dark",
         "--toc-mode",
@@ -159,7 +159,7 @@
         "--target",
         "html",
         "--output-dir",
-        "exports"
+        "build/exports"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -176,7 +176,7 @@
         "--target",
         "html",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon"
       ],
@@ -195,7 +195,7 @@
         "--target",
         "html",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon-dark"
       ],
@@ -214,7 +214,7 @@
         "--target",
         "html",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--toc-mode",
         "sidebar"
       ],
@@ -233,7 +233,7 @@
         "--target",
         "html",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon",
         "--toc-mode",
@@ -254,7 +254,7 @@
         "--target",
         "html",
         "--output-dir",
-        "exports",
+        "build/exports",
         "--theme",
         "mobeon-dark",
         "--toc-mode",
@@ -273,7 +273,7 @@
         "tools/sync_pages_site.py",
         "${file}",
         "--exports-dir",
-        "exports",
+        "build/exports",
         "--site-dir",
         "site"
       ],

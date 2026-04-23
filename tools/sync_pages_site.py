@@ -65,7 +65,7 @@ def main() -> None:
     version_dir = site_dir / "versions"
 
     copy_file(source_html, site_dir / "index.html")
-    copy_file(source_pdf, site_dir / "latest.pdf")
+    copy_file(source_pdf, site_dir / f"{base_name}.pdf")
     copy_file(source_html, version_dir / f"{base_name}.html")
     copy_file(source_pdf, version_dir / f"{base_name}.pdf")
 
